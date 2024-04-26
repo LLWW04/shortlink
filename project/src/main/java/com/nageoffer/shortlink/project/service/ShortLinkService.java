@@ -31,6 +31,7 @@ import com.nageoffer.shortlink.project.dto.resp.ShortLinkGroupCountQueryRespDTO;
 import com.nageoffer.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import lombok.SneakyThrows;
 
 import java.util.List;
 
@@ -97,9 +98,21 @@ public interface ShortLinkService extends IService<ShortLinkDO> {
     void restoreUrl(String shortUri, ServletRequest request, ServletResponse response);
 
     /**
+     * 短链接跳转（分片缓解压力
+     *
+     * @param shortUri 短链接后缀
+     * @param request  HTTP 请求
+     * @param response HTTP 响应
+     */
+    @SneakyThrows
+    void restoreUrlBySharding(String shortUri, ServletRequest request, ServletResponse response);
+
+    /**
      * 短链接统计
      *
      * @param shortLinkStatsRecord 短链接统计实体参数
      */
     void shortLinkStats(ShortLinkStatsRecordDTO shortLinkStatsRecord);
+
+
 }
